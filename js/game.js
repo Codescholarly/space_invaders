@@ -115,6 +115,12 @@ var Game = {
 	    fire = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	
     	game.input.onDown.add(this.toDrag, this);
+		if (game.device.touch)
+		{
+		   game.renderer.view.addEventListener('touchmove', this.onTouchMove, false);
+		   game.renderer.view.addEventListener('touchenter', this.onTouchEnter, false);
+		   game.renderer.view.addEventListener('touchleave', this.onTouchLeave, false);
+        }
 
 	},
 
@@ -192,12 +198,7 @@ var Game = {
 		}
         game.physics.arcade.overlap(lasers, aliens, this.collision, null, this);
         game.physics.arcade.overlap(alienBullets, player, this.alienHitPlayer, null, this);
-		if (this.game.device.touch)
-		        {
-		            this.game.renderer.view.addEventListener('touchmove', this.onTouchMove, false);
-		            this.game.renderer.view.addEventListener('touchenter', this.onTouchEnter, false);
-		            this.game.renderer.view.addEventListener('touchleave', this.onTouchLeave, false);
-		        }
+
 
 
 	},
