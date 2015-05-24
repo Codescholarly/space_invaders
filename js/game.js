@@ -27,7 +27,8 @@ var delta;
 var squareRad;
 var contour;
 var stick;
-var margin;
+var direction;
+var magnitude;
 
 var Game = {
 	
@@ -99,10 +100,10 @@ var Game = {
  	    button = game.add.button(660, 460, 'button', this.buttonAction, null, 2, 1, 0);
 
         //Joystick
-		position=new Phaser.Point(0,0); //position of the whole joystick
-		stickPosition=new Phaser.Point(0,0); //position of the stick
-
-		delta=new Phaser.Point(0,0); //vector from joystick to finger
+		position=new Phaser.Point(0,0); 
+		stickPosition=new Phaser.Point(0,0); 
+		magnitude=new Phaser.Point(0,0); 
+		direction=new Phaser.Point(0,0); 
 		stick=game.add.sprite(stickPosition.x, stickPosition.y, 'stick');
 		stick.anchor.setTo(0.5, 0.5);
 		game.physics.enable(stick, Phaser.Physics.ARCADE);
@@ -114,14 +115,14 @@ var Game = {
 	    cursors = game.input.keyboard.createCursorKeys();
 	    fire = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	
-    	game.input.onDown.add(this.toDrag, this);
+    //	game.input.onDown.add(this.toDrag, this);
 		if (game.device.touch)
 		{
-	//	   game.renderer.view.addEventListener('touchmove', this.onTouchMove, false);
-	//	   game.renderer.view.addEventListener('touchstart', this.onTouchStart, false);
-	//	   game.renderer.view.addEventListener('touchleave', this.onTouchLeave, false);
-	       game.input.touch.touchStartCallback = this.onTouchStart;
-	       game.input.touch.touchMoveCallback = this.onTouchMove;
+	  //     game.input.touch.touchStartCallback = this.onTouchStart;
+	  //     game.input.touch.touchMoveCallback = this.onTouchMove;
+	//	if (game.input.activePointer.isDown) {
+	       game.input.mouse.mouseDownCallback = this.onTouchStart;
+	       game.input.mouse.mouseMoveCallback = this.onTouchMove;
         }
 
 	},
@@ -172,14 +173,14 @@ var Game = {
 	        {
 	            player.body.velocity.x = 200;
 	        }
-	        else if (cursors.up.isDown)
-	        {
-	            player.body.velocity.y = -200;
-	        }
-	        else if (cursors.down.isDown)
-	        {
-	            player.body.velocity.y = 200;
-	        }
+//	        else if (cursors.up.isDown)
+//	        {
+//	            player.body.velocity.y = -200;
+//	        }
+//	        else if (cursors.down.isDown)
+//	        {
+//	            player.body.velocity.y = 200;
+//	        }
 	
 	        // Dispara si se presiona el mouse
 	        if (fire.isDown)
@@ -206,18 +207,25 @@ var Game = {
 	},
 	
 	onTouchStart: function (event) {
-		var pos = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
-        contour.position.copyFrom(pos);
+		this.position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
+        contour.position.copyFrom(this.position);
     },
 
 	onTouchMove: function (event) {
 		var pos = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
+		this.direction = Phaser.Point.subtract(pos, this.position);
 		stick.position.copyFrom(pos); 
+		this.magnitude = this.direction.getMagnitudeSq();
+		if(this.magnitude > 10)
+		{
+			this.magnitude = 10;
+		}
+		player.body.velocity.x = this.direction.multiply(this.magnitude).x;
     },
  
 	render: function() {
 		console.log(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio);
-		console.log(this.game.input.activePointer.msSinceLastClick);
+
 	},
 	
 	
@@ -299,6 +307,7 @@ var Game = {
 	},
 	
 	fireAlien: function() {
+
 		//  Agarramos el primer bullet
 	    alienBullet = alienBullets.getFirstExists(false);
 
@@ -325,7 +334,9 @@ var Game = {
 
 	        game.physics.arcade.moveToObject(alienBullet,player,120);
 	        firingTimer = game.time.now + alienFireSpeed;
+
 	    }
+
 	},
 	
 	restart: function () {
