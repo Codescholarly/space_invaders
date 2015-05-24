@@ -117,9 +117,11 @@ var Game = {
     	game.input.onDown.add(this.toDrag, this);
 		if (game.device.touch)
 		{
-		   game.renderer.view.addEventListener('touchmove', this.onTouchMove, false);
-		   game.renderer.view.addEventListener('touchstart', this.onTouchStart, false);
-		   game.renderer.view.addEventListener('touchleave', this.onTouchLeave, false);
+	//	   game.renderer.view.addEventListener('touchmove', this.onTouchMove, false);
+	//	   game.renderer.view.addEventListener('touchstart', this.onTouchStart, false);
+	//	   game.renderer.view.addEventListener('touchleave', this.onTouchLeave, false);
+	       game.input.touch.touchStartCallback = this.onTouchStart;
+	       game.input.touch.touchMoveCallback = this.onTouchMove;
         }
 
 	},
@@ -204,13 +206,11 @@ var Game = {
 	},
 	
 	onTouchStart: function (event) {
-	//	super();
 		var pos = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
         contour.position.copyFrom(pos);
     },
 
 	onTouchMove: function (event) {
-	//	super();
 		var pos = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
 		stick.position.copyFrom(pos); 
     },
