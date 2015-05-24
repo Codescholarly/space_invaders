@@ -31,21 +31,18 @@ var margin;
 
 var Game = {
 	
-	buttonAction: function() {
-
-	    this.fireLaser();
-
-	},
-	
 	toDrag: function() {
+//	 if (!this.game.device.desktop) {
 		player.inputEnabled = true;
         player.input.enableDrag();
+        stick.inputEnabled = true;
+        stick.input.enableDrag();
+ //    }
 	},
 	
 	create: function() {
 
 	    game.physics.startSystem(Phaser.Physics.ARCADE);
-	
 	
         // Sonidos
         laser_sound = game.add.audio('laser');
@@ -108,6 +105,8 @@ var Game = {
 		delta=new Phaser.Point(0,0); //vector from joystick to finger
 		stick=game.add.sprite(stickPosition.x, stickPosition.y, 'stick');
 		stick.anchor.setTo(0.5, 0.5);
+		game.physics.enable(stick, Phaser.Physics.ARCADE);
+
 		contour=game.add.sprite(position.x, position.y, 'contour');
         contour.anchor.setTo(0.5, 0.5);
 
@@ -193,19 +192,58 @@ var Game = {
 		}
         game.physics.arcade.overlap(lasers, aliens, this.collision, null, this);
         game.physics.arcade.overlap(alienBullets, player, this.alienHitPlayer, null, this);
+		if (this.game.device.touch)
+		        {
+		            this.onTouchStart = function (event) {
+		                return this.onTouchStart(event);
+		            };
 
-        if (!this.game.device.desktop && this.game.input.activePointer.isDown) {
-	            stick.x = game.input.activePointer.x;
-	            stick.y = game.input.activePointer.y;
-	              
-	            contour.x = game.input.activePointer.x;
-	            contour.y = game.input.activePointer.y;        
-	    }
+		            this.onTouchMove = function (event) {
+		                return this.onTouchMove(event);
+		            };
+
+		            this.onTouchEnd = function (event) {
+		                return this.onTouchEnd(event);
+		            };
+
+		            this.onTouchEnter = function (event) {
+		                return this.onTouchEnter(event);
+		            };
+
+		            this.onTouchLeave = function (event) {
+		                return this.onTouchLeave(event);
+		            };
+
+		            this.onTouchCancel = function (event) {
+		                return this.onTouchCancel(event);
+		            };
+
+		            this.game.renderer.view.addEventListener('touchstart', this.onTouchStart, false);
+		            this.game.renderer.view.addEventListener('touchmove', this.onTouchMove, false);
+		            this.game.renderer.view.addEventListener('touchend', this.onTouchEnd, false);
+		            this.game.renderer.view.addEventListener('touchenter', this.onTouchEnter, false);
+		            this.game.renderer.view.addEventListener('touchleave', this.onTouchLeave, false);
+		            this.game.renderer.view.addEventListener('touchcancel', this.onTouchCancel, false);
+		        }
+
+
 	},
 	
-	
+	onTouchStart: function (event) {
+	//	super();
+		var pos = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
+        contour.position.copyFrom(pos);
+    },
+
+	onTouchMove: function (event) {
+	//	super();
+		var pos = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
+		stick.position.copyFrom(pos); 
+    },
+ 
 	render: function() {
 		console.log(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio);
+		console.log(this.game.input.activePointer.msSinceLastClick);
 	},
 	
 	
@@ -331,28 +369,8 @@ var Game = {
 	    //escondemos el texto
 	    stateText.visible = false;
 
-	},
-	
-	Joystick: function(){ //This class simulates an analog joystick for touchscreen devices
-	    this.position=new Phaser.Point(0,0); //position of the whole joystick
-	    this.stickPosition=new Phaser.Point(0,0); //position of the stick
-
-	    this.delta=new Phaser.Point(0,0); //vector from joystick to finger
-	    //stick contour
-	    //this.size=new vect(imgJoystick.spriteSize.X*this.stickSize[OPTION.stickSize],imgJoystick.spriteSize.Y*this.stickSize[OPTION.stickSize]);
-	    //this.halfSize=new vect(this.size.X>>1,this.size.Y>>1);
-	    this.squareRad=this.halfSize.x*this.halfSize.y; //compared with square magnitude of delta in setPosition() to determine what to do
-	    //this.stickContour=new sprite(this.position,0,0,imgJoystick,this.size,this.halfSize,0);
-        this.contour=game.add.sprite(this.position.x, this.position.y, 'contour');
-	    //stick
-	    //this.sSize=new vect(imgJoystick2.spriteSize.X*this.stickSize[OPTION.stickSize],imgJoystick2.spriteSize.Y*this.stickSize[OPTION.stickSize]);
-	    //this.sHalfSize=new vect(this.sSize.X>>1,this.sSize.Y>>1);
-	    //this.stick=new sprite(this.stickPosition,0,0,imgJoystick2,this.sSize,this.sHalfSize,0);
-        this.stick=game.add.sprite(this.stickPosition.x, this.stickPosition.y, 'stick');
-
-	    this.margin=new Margin(-this.halfSize.x,-this.halfSize.x);
-
 	}
+	
 
 };
 
