@@ -118,7 +118,7 @@ var Game = {
 		if (game.device.touch)
 		{
 		   game.renderer.view.addEventListener('touchmove', this.onTouchMove, false);
-		   game.renderer.view.addEventListener('touchstartr', this.onTouchStart, false);
+		   game.renderer.view.addEventListener('touchstart', this.onTouchStart, false);
 		   game.renderer.view.addEventListener('touchleave', this.onTouchLeave, false);
         }
 
