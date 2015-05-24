@@ -194,17 +194,11 @@ var Game = {
         game.physics.arcade.overlap(alienBullets, player, this.alienHitPlayer, null, this);
 		if (this.game.device.touch)
 		        {
-		            this.onTouchStart = function (event) {
-		                return this.onTouchStart(event);
-		            };
 
 		            this.onTouchMove = function (event) {
 		                return this.onTouchMove(event);
 		            };
 
-		            this.onTouchEnd = function (event) {
-		                return this.onTouchEnd(event);
-		            };
 
 		            this.onTouchEnter = function (event) {
 		                return this.onTouchEnter(event);
@@ -214,22 +208,16 @@ var Game = {
 		                return this.onTouchLeave(event);
 		            };
 
-		            this.onTouchCancel = function (event) {
-		                return this.onTouchCancel(event);
-		            };
 
-		            this.game.renderer.view.addEventListener('touchstart', this.onTouchStart, false);
 		            this.game.renderer.view.addEventListener('touchmove', this.onTouchMove, false);
-		            this.game.renderer.view.addEventListener('touchend', this.onTouchEnd, false);
 		            this.game.renderer.view.addEventListener('touchenter', this.onTouchEnter, false);
 		            this.game.renderer.view.addEventListener('touchleave', this.onTouchLeave, false);
-		            this.game.renderer.view.addEventListener('touchcancel', this.onTouchCancel, false);
 		        }
 
 
 	},
 	
-	onTouchStart: function (event) {
+	onTouchEnter: function (event) {
 	//	super();
 		var pos = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
         contour.position.copyFrom(pos);
