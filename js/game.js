@@ -118,7 +118,7 @@ var Game = {
 		if (game.device.touch)
 		{
 		   game.renderer.view.addEventListener('touchmove', this.onTouchMove, false);
-		   game.renderer.view.addEventListener('touchenter', this.onTouchEnter, false);
+		   game.renderer.view.addEventListener('touchstartr', this.onTouchStart, false);
 		   game.renderer.view.addEventListener('touchleave', this.onTouchLeave, false);
         }
 
@@ -203,7 +203,7 @@ var Game = {
 
 	},
 	
-	onTouchEnter: function (event) {
+	onTouchStart: function (event) {
 	//	super();
 		var pos = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
         contour.position.copyFrom(pos);
