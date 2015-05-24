@@ -194,21 +194,6 @@ var Game = {
         game.physics.arcade.overlap(alienBullets, player, this.alienHitPlayer, null, this);
 		if (this.game.device.touch)
 		        {
-
-		            this.onTouchMove = function (event) {
-		                return this.onTouchMove(event);
-		            };
-
-
-		            this.onTouchEnter = function (event) {
-		                return this.onTouchEnter(event);
-		            };
-
-		            this.onTouchLeave = function (event) {
-		                return this.onTouchLeave(event);
-		            };
-
-
 		            this.game.renderer.view.addEventListener('touchmove', this.onTouchMove, false);
 		            this.game.renderer.view.addEventListener('touchenter', this.onTouchEnter, false);
 		            this.game.renderer.view.addEventListener('touchleave', this.onTouchLeave, false);
