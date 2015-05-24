@@ -118,11 +118,11 @@ var Game = {
     //	game.input.onDown.add(this.toDrag, this);
 		if (game.device.touch)
 		{
-	  //     game.input.touch.touchStartCallback = this.onTouchStart;
-	  //     game.input.touch.touchMoveCallback = this.onTouchMove;
+	       game.input.touch.touchStartCallback = this.onTouchStart;
+	       game.input.touch.touchMoveCallback = this.onTouchMove;
 	//	if (game.input.activePointer.isDown) {
-	       game.input.mouse.mouseDownCallback = this.onTouchStart;
-	       game.input.mouse.mouseMoveCallback = this.onTouchMove;
+	    //   game.input.mouse.mouseDownCallback = this.onTouchStart;
+	    //   game.input.mouse.mouseMoveCallback = this.onTouchMove;
         }
 
 	},
