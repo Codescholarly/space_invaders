@@ -116,9 +116,9 @@ var Game = {
 
 		if (game.device.touch)
 		{
-	       game.input.touch.touchEnterCallback = this.onTouchStart;
+	       game.input.touch.touchStartCallback = this.onTouchStart;
 	       game.input.touch.touchMoveCallback = this.onTouchMove;
-//	       game.input.touch.touchLeaveCallback = this.onTouchLeave;	
+	       game.input.touch.touchLeaveCallback = this.onTouchLeave;	
 		}
 //		else
 //		{
