@@ -120,12 +120,12 @@ var Game = {
 	       game.input.touch.touchMoveCallback = this.onTouchMove;
 	       game.input.touch.touchEndCallback = this.onTouchLeave;	
 		}
-//		else
-//		{
-//		   game.input.mouse.mouseDownCallback = this.onTouchStart;
- //          game.input.mouse.mouseMoveCallback = this.onTouchMove;
-//           game.input.mouse.mouseOutCallback = this.onTouchLeave;
- //      }
+		else
+		{
+		   game.input.mouse.mouseDownCallback = this.onTouchStart;
+           game.input.mouse.mouseMoveCallback = this.onTouchMove;
+          game.input.mouse.mouseOutCallback = this.onTouchLeave;
+       }
 
 	},
 
@@ -244,7 +244,8 @@ var Game = {
     },
 
 	onTouchMove: function (event) {
-		if(game.input.activePointer.x <= game.world.centerX ) {
+		console.log(event);
+		if(game.input.activePointer.isDown && game.input.activePointer.x <= game.world.centerX ) {
 		  this.stickPosition = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
 		  this.direction = Phaser.Point.subtract(this.stickPosition, this.position);
 		  this.magnitude = this.direction.getMagnitudeSq();
