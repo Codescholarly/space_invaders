@@ -115,7 +115,7 @@ var Game = {
 	    cursors = game.input.keyboard.createCursorKeys();
 	    fire = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 	
-    //	game.input.onDown.add(this.toDrag, this);
+    	game.input.onDown.add(this.toDrag, this);
 		if (game.device.touch)
 		{
 	       game.input.touch.touchStartCallback = this.onTouchStart;
