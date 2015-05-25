@@ -120,11 +120,11 @@ var Game = {
 	       game.input.touch.touchMoveCallback = this.onTouchMove;
 	
 		}
-//		else
-//		{
-//		   game.input.mouse.mouseDownCallback = this.onTouchStart;
- //          game.input.mouse.mouseMoveCallback = this.onTouchMove;
- //       }
+		else
+		{
+		   game.input.mouse.mouseDownCallback = this.onTouchStart;
+           game.input.mouse.mouseMoveCallback = this.onTouchMove;
+       }
 
 	},
 
@@ -213,12 +213,32 @@ var Game = {
 	   stick.input.enableDrag();
 	},
 	
+	fireLaser: function() {
+		
+	    if (game.time.now > laserTime)
+	    {
+	        laser = lasers.getFirstExists(false);
+
+	        if (laser)
+	        {
+	            laser.reset(player.x, player.y + 8);
+	            laser.body.velocity.y = -400;
+	            laserTime = game.time.now + 200;
+	        }
+	    }
+        laser_sound.play();
+
+	},	
+	
 	onTouchStart: function (event) {
 		// En la mitad derecha activamos el disparo
-		if(game.input.activePointer.x > game.world.centerX ) {
-			this.fireLaser();			
+		console.log(game.input.activePointer.x);
+		//(game.input.activePointer.x > game.world.centerX ) {
+		//	this.fireLaser();		
 		// En la mitad izquierda el movimiento del joystick	
-		}else if (game.input.activePointer.x <= game.world.centerX ){
+		//}else
+		
+		 if (game.input.activePointer.x <= game.world.centerX ){
 			this.position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
 	        contour.position.copyFrom(this.position);
 	        stick.position.copyFrom(this.position);			
@@ -308,22 +328,7 @@ var Game = {
 		this.state.start('GameOver');
 	},
 		
-	fireLaser: function() {
-		
-	    if (game.time.now > laserTime)
-	    {
-	        laser = lasers.getFirstExists(false);
 
-	        if (laser)
-	        {
-	            laser.reset(player.x, player.y + 8);
-	            laser.body.velocity.y = -400;
-	            laserTime = game.time.now + 200;
-	        }
-	    }
-        laser_sound.play();
-
-	},
 	
 	fireAlien: function() {
 
