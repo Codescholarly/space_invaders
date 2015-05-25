@@ -119,11 +119,12 @@ var Game = {
 	       game.input.touch.touchStartCallback = this.onTouchStart;
 	       game.input.touch.touchMoveCallback = this.onTouchMove;
 	
-		}else
-		{
-		   game.input.mouse.mouseDownCallback = this.onTouchStart;
-           game.input.mouse.mouseMoveCallback = this.onTouchMove;
-        }
+		}
+//		else
+//		{
+//		   game.input.mouse.mouseDownCallback = this.onTouchStart;
+ //          game.input.mouse.mouseMoveCallback = this.onTouchMove;
+ //       }
 
 	},
 
@@ -208,10 +209,8 @@ var Game = {
 	},
 
 	toDrag: function() {
-	//	 if (!this.game.device.desktop) {
-	        stick.inputEnabled = true;
-	        stick.input.enableDrag();
-	 //    }
+	   stick.inputEnabled = true;
+	   stick.input.enableDrag();
 	},
 	
 	onTouchStart: function (event) {
