@@ -116,15 +116,16 @@ var Game = {
 
 		if (game.device.touch)
 		{
-	       game.input.touch.touchStartCallback = this.onTouchStart;
+	       game.input.touch.touchEnterCallback = this.onTouchStart;
 	       game.input.touch.touchMoveCallback = this.onTouchMove;
-	
+	       game.input.touch.touchLeaveCallback = this.onTouchLeave;	
 		}
-		else
-		{
-		   game.input.mouse.mouseDownCallback = this.onTouchStart;
-           game.input.mouse.mouseMoveCallback = this.onTouchMove;
-       }
+//		else
+//		{
+//		   game.input.mouse.mouseDownCallback = this.onTouchStart;
+ //          game.input.mouse.mouseMoveCallback = this.onTouchMove;
+//           game.input.mouse.mouseOutCallback = this.onTouchLeave;
+ //      }
 
 	},
 
@@ -243,12 +244,12 @@ var Game = {
     },
 
 	onTouchMove: function (event) {
-		if((game.device.touch || game.input.activePointer.isDown) && (game.input.activePointer.x <= game.world.centerX )) {
+		if(game.input.activePointer.x <= game.world.centerX ) {
 		  this.stickPosition = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
 		  this.direction = Phaser.Point.subtract(this.stickPosition, this.position);
 		  this.magnitude = this.direction.getMagnitudeSq();
-		  this.stickPosition.clampX(this.position.x-20,this.position.x+20);
-		  this.stickPosition.clampY(this.position.y-20,this.position.y+20);		
+//		  this.stickPosition.clampX(this.position.x-20,this.position.x+20);
+//		  this.stickPosition.clampY(this.position.y-20,this.position.y+20);		
  //         stick.position.copyFrom(this.stickPosition);
 		  if(this.magnitude >= 10)
 		  {  
@@ -257,6 +258,10 @@ var Game = {
 		  player.body.velocity.x = this.direction.multiply(this.magnitude).x;
 	    }
     },
+
+	onTouchLeave: function (event) {
+		player.body.velocity.x = 0;
+	}	
  
 	render: function() {
 		console.log(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio);
