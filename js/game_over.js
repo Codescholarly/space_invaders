@@ -26,7 +26,7 @@ var GameOver = {
 	},
 
  	startGame: function (pointer) {
-		this.state.start('Preloader');
+		this.state.start('MainMenu');
 	}
 	
 
