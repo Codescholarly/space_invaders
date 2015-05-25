@@ -89,7 +89,7 @@ var Game = {
 	    explosions.createMultiple(30, 'kaboom');
 	
 	    //Boton para moviles
- 	    button = game.add.button(660, 460, 'button', this.buttonAction, null, 2, 1, 0);
+ //	    button = game.add.button(660, 460, 'button', this.buttonAction, null, 2, 1, 0);
 
         //Joystick para moviles
 		position=new Phaser.Point(70,530); 
@@ -98,16 +98,16 @@ var Game = {
 		direction=new Phaser.Point(0,0); 
 
         // El Palo del Joystick		
-		stick=game.add.sprite(stickPosition.x, stickPosition.y, 'stick');
-		stick.anchor.setTo(0.5, 0.5);
-		game.physics.enable(stick, Phaser.Physics.ARCADE);
+//		stick=game.add.sprite(stickPosition.x, stickPosition.y, 'stick');
+//		stick.anchor.setTo(0.5, 0.5);
+//		game.physics.enable(stick, Phaser.Physics.ARCADE);
 
         //Para poder mover el palo
     	game.input.onDown.add(this.toDrag, this);
 
         // El contorno del Joystick
-		contour=game.add.sprite(position.x, position.y, 'contour');
-        contour.anchor.setTo(0.5, 0.5);
+//		contour=game.add.sprite(position.x, position.y, 'contour');
+//        contour.anchor.setTo(0.5, 0.5);
 
 	    //  Controles de teclado
 	    cursors = game.input.keyboard.createCursorKeys();
@@ -198,8 +198,11 @@ var Game = {
 
 	    }
 	
-		if (button.input.pointerDown(game.input.activePointer.id)) {
-					this.fireLaser();
+//		if (button.input.pointerDown(game.input.activePointer.id)) {
+//					this.fireLaser();
+//		}
+	    if (game.input.activePointer.isDown && game.input.activePointer.x > game.world.centerX ){
+			this.fireLaser();
 		}
         game.physics.arcade.overlap(lasers, aliens, this.collision, null, this);
         game.physics.arcade.overlap(alienBullets, player, this.alienHitPlayer, null, this);
@@ -231,17 +234,10 @@ var Game = {
 	},	
 	
 	onTouchStart: function (event) {
-		// En la mitad derecha activamos el disparo
-		console.log(game.input.activePointer.x);
-		//(game.input.activePointer.x > game.world.centerX ) {
-		//	this.fireLaser();		
-		// En la mitad izquierda el movimiento del joystick	
-		//}else
-		
 		 if (game.input.activePointer.x <= game.world.centerX ){
 			this.position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
-	        contour.position.copyFrom(this.position);
-	        stick.position.copyFrom(this.position);			
+//	        contour.position.copyFrom(this.position);
+//	        stick.position.copyFrom(this.position);			
      	}
 
     },
@@ -253,7 +249,7 @@ var Game = {
 		  this.magnitude = this.direction.getMagnitudeSq();
 		  this.stickPosition.clampX(this.position.x-20,this.position.x+20);
 		  this.stickPosition.clampY(this.position.y-20,this.position.y+20);		
-          stick.position.copyFrom(this.stickPosition);
+ //         stick.position.copyFrom(this.stickPosition);
 		  if(this.magnitude >= 10)
 		  {  
 			this.magnitude = 10;
