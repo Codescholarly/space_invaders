@@ -261,7 +261,7 @@ var Game = {
 
 	onTouchLeave: function (event) {
 		player.body.velocity.x = 0;
-	}	
+	},	
  
 	render: function() {
 		console.log(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio);
