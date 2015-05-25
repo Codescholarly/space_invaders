@@ -103,7 +103,7 @@ var Game = {
 //		game.physics.enable(stick, Phaser.Physics.ARCADE);
 
         //Para poder mover el palo
-    	game.input.onDown.add(this.toDrag, this);
+//    	game.input.onDown.add(this.toDrag, this);
 
         // El contorno del Joystick
 //		contour=game.add.sprite(position.x, position.y, 'contour');
@@ -118,7 +118,7 @@ var Game = {
 		{
 	       game.input.touch.touchStartCallback = this.onTouchStart;
 	       game.input.touch.touchMoveCallback = this.onTouchMove;
-	//       game.input.touch.touchLeaveCallback = this.onTouchLeave;	
+	       game.input.touch.touchEndCallback = this.onTouchLeave;	
 		}
 //		else
 //		{
@@ -212,10 +212,10 @@ var Game = {
 
 	},
 
-	toDrag: function() {
-	   stick.inputEnabled = true;
-	   stick.input.enableDrag();
-	},
+//	toDrag: function() {
+//	   stick.inputEnabled = true;
+//	   stick.input.enableDrag();
+//	},
 	
 	fireLaser: function() {
 		
