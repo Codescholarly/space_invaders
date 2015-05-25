@@ -114,15 +114,18 @@ var Game = {
 	    //  Controles de keyboard y mouse
 	    cursors = game.input.keyboard.createCursorKeys();
 	    fire = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-	
+
     	game.input.onDown.add(this.toDrag, this);
+
 		if (game.device.touch)
 		{
 	       game.input.touch.touchStartCallback = this.onTouchStart;
 	       game.input.touch.touchMoveCallback = this.onTouchMove;
-	//	if (game.input.activePointer.isDown) {
-	    //   game.input.mouse.mouseDownCallback = this.onTouchStart;
-	    //   game.input.mouse.mouseMoveCallback = this.onTouchMove;
+	
+		}else
+		{
+		   game.input.mouse.mouseDownCallback = this.onTouchStart;
+           game.input.mouse.mouseMoveCallback = this.onTouchMove;
         }
 
 	},
@@ -173,15 +176,16 @@ var Game = {
 	        {
 	            player.body.velocity.x = 200;
 	        }
-//	        else if (cursors.up.isDown)
-//	        {
-//	            player.body.velocity.y = -200;
-//	        }
-//	        else if (cursors.down.isDown)
-//	        {
-//	            player.body.velocity.y = 200;
-//	        }
-	
+/*
+           else if (cursors.up.isDown)
+	        {
+	            player.body.velocity.y = -200;
+	        }
+	        else if (cursors.down.isDown)
+	        {
+	            player.body.velocity.y = 200;
+	        }
+*/	
 	        // Dispara si se presiona el mouse
 	        if (fire.isDown)
 			{
@@ -212,15 +216,17 @@ var Game = {
     },
 
 	onTouchMove: function (event) {
-		var pos = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
-		this.direction = Phaser.Point.subtract(pos, this.position);
-		stick.position.copyFrom(pos); 
-		this.magnitude = this.direction.getMagnitudeSq();
-		if(this.magnitude > 10)
-		{
+		if(game.device.touch || game.input.activePointer.isDown) {
+		  var pos = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
+		  this.direction = Phaser.Point.subtract(pos, this.position);
+		  stick.position.copyFrom(pos); 
+		  this.magnitude = this.direction.getMagnitudeSq();
+		  if(this.magnitude > 10)
+		  {  
 			this.magnitude = 10;
-		}
-		player.body.velocity.x = this.direction.multiply(this.magnitude).x;
+	  	  }
+		  player.body.velocity.x = this.direction.multiply(this.magnitude).x;
+	    }
     },
  
 	render: function() {
