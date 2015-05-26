@@ -256,7 +256,7 @@ var Game = {
 //			this.magnitude = 10;
 //	      }
 	      
-		  	 player.x += (game.input.activePointer.x-this.position.x)/10;
+		  	 player.x += game.input.activePointer.x-this.position.x;
              console.log(player.x);
 
 	    }
