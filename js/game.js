@@ -27,6 +27,8 @@ var contour;
 var stick;
 var direction;
 var magnitude;
+var touchLeft;
+var touchRight;
 
 var Game = {
 	
@@ -112,7 +114,15 @@ var Game = {
 	    //  Controles de teclado
 	    cursors = game.input.keyboard.createCursorKeys();
 	    fire = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+        
+        //Indicacion
+        touchLeft = game.add.sprite(0,0,'touch-left');
+	    touchLeft.anchor.setTo(0.5, 0.5);
+	    touchLeft.visible = false
 
+        touchRight = game.add.sprite(0,0,'touch-right');
+	    touchRight.anchor.setTo(0.5, 0.5);
+	    touchRight.visible = false
 
 		if (game.device.touch)
 		{
@@ -244,6 +254,19 @@ var Game = {
 	onTouchStart: function (event) {
 		 if (game.input.activePointer.x <= game.world.centerX ){
 			position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
+			if(game.input.activePointer.x-position.x > 0) {
+				touchLeft.position.copyFrom(position);
+				touchLeft.visible=true; 
+	            touchLeft.alpha = 1; 
+	            game.add.tween(touchLeft).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
+				touchLeft.revive();
+			}else if(game.input.activePointer.x-position.x <= 0){
+			    touchRight.position.copyFrom(position);
+	            touchLeft.visible=true; 		
+	            touchRight.alpha = 1;
+	            game.add.tween(touchRight).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
+			    touchRight.revive();				
+			}
 //	        contour.position.copyFrom(this.position);
 //	        stick.position.copyFrom(this.position);	
          }
@@ -251,6 +274,8 @@ var Game = {
 
 	onTouchEnd: function (event) {
 		player.body.velocity.x = 0;
+		touchLeft.kill();
+		touchRight.kill();
 	},	
  
 	render: function() {
