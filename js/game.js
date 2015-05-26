@@ -244,7 +244,6 @@ var Game = {
     },
 
 	onTouchMove: function (event) {
-		console.log(event);
 		if(game.input.activePointer.isDown && game.input.activePointer.x <= game.world.centerX ) {
 		  this.stickPosition = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
 		  this.direction = Phaser.Point.subtract(this.stickPosition, this.position);
@@ -255,9 +254,6 @@ var Game = {
 		  if(this.magnitude >= 10)
 		  {  
 			this.magnitude = 10;
-			this.direction = Phaser.Point.normalize(this.direction);
-			this.position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
-			this.position = Phaser.Point.subtract(this.position, this.direction);
 	      }
 		  player.body.velocity.x = this.direction.multiply(this.magnitude).x;
 	    }
