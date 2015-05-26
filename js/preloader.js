@@ -17,8 +17,8 @@ var Preloader = {
 	    this.load.spritesheet('invader', 'img/enemies/enemy'+alien_colors[game.rnd.integerInRange(0,3)]+game.rnd.integerInRange(1,5)+'.png', 93, 93);
 	    this.load.spritesheet('kaboom', 'img/explode.png', 128, 128);
 
-	    this.load.image('touch-left', 'img/touch-left.png')
-	    this.load.image('touch-right', 'img/touch-right.png')
+	    this.load.image('touch', 'img/touch.png')
+	    this.load.image('fire', 'img/fire.png')
 
 	    this.load.image('button', 'img/button.png')
 	    this.load.image('contour', 'img/contour.png')
