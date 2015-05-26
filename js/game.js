@@ -72,7 +72,7 @@ var Game = {
 
 	    //  Las vidas
 	    lives = 3;
-	    liveString = 'VIDASs: ';
+	    liveString = 'VIDASsx: ';
 	    liveText = game.add.text(700, 10, liveString + lives, { font: '18px Arial', fill: '#fff' });
 	
 	    //  Texto
@@ -236,10 +236,10 @@ var Game = {
 	
 	onTouchStart: function (event) {
 		 if (game.input.activePointer.x <= game.world.centerX ){
-			this.position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
+			position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
 //	        contour.position.copyFrom(this.position);
-//	        stick.position.copyFrom(this.position);			
-     	}else if (game.input.activePointer.x > game.world.centerX ) {
+//	        stick.position.copyFrom(this.position);	
+	     }else if(game.input.activePointer.x > game.world.centerX ){
 		    if (game.time.now > laserTime)
 		    {
 		        laser = lasers.getFirstExists(false);
@@ -252,8 +252,8 @@ var Game = {
 		        }
 		    }
 	        laser_sound.play();
-        }
-        console.log("Start");
+		}		
+        console.log(position);
     },
 
 	onTouchMove: function (event) {
@@ -269,7 +269,7 @@ var Game = {
 //			this.magnitude = 10;
 //	      }
 	      
-		  	 player.x += game.input.activePointer.x-this.position.x;
+		  	 player.x += game.input.activePointer.x-position.x;
              console.log(player.x);
 
 	    }
@@ -280,7 +280,7 @@ var Game = {
 	},	
  
 	render: function() {
-		console.log(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio);
+	//	console.log(window.innerWidth * window.devicePixelRatio, window.innerHeight * window.devicePixelRatio);
 
 	},
 	
