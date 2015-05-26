@@ -134,7 +134,7 @@ var Game = {
 		{
 		   game.input.mouse.mouseDownCallback = this.onTouchStart;
    //        game.input.mouse.mouseMoveCallback = this.onTouchMove;
-           game.input.mouse.mouseOutCallback = this.onTouchLeave;
+           game.input.mouse.mouseUpCallback = this.onTouchEnd;
        }
 
 	},
@@ -218,18 +218,9 @@ var Game = {
 		else if(game.input.activePointer.isDown && game.input.activePointer.x <= game.world.centerX ) {
 			if(game.input.activePointer.x-position.x > 0) {
 		  	  player.body.velocity.x = 200;  
-				touchLeft.position.copyFrom(position);
-				touchLeft.visible=true; 
-	            touchLeft.alpha = 1; 
-	            game.add.tween(touchLeft).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
 				touchLeft.revive(); 				
 			}else if(game.input.activePointer.x-position.x <= 0){
 			  player.body.velocity.x = -200;				
-			    touchRight.position.copyFrom(position);
-	            touchRight.visible=true; 		
-	            touchRight.alpha = 1;
-	            game.add.tween(touchRight).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
-			    touchRight.revive();
 			}
 	    }
         game.physics.arcade.overlap(lasers, aliens, this.collision, null, this);
@@ -263,23 +254,9 @@ var Game = {
 	
 	onTouchStart: function (event) {
 		 if (game.input.activePointer.x <= game.world.centerX ){
-			var pastPosition = position;
 			position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
-			/*
-			if(pastPosition.x-position.x > 0) {
-				touchLeft.position.copyFrom(position);
-				touchLeft.visible=true; 
-	            touchLeft.alpha = 1; 
-	            game.add.tween(touchLeft).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
-				touchLeft.revive();
-			}else if(pastPosition.x-position.x <= 0){
-			    touchRight.position.copyFrom(position);
-	            touchRight.visible=true; 		
-	            touchRight.alpha = 1;
-	            game.add.tween(touchRight).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
-			    touchRight.revive();				
-			}
-			*/
+			touchLeft.kill();
+			touchRight.kill();
 //	        contour.position.copyFrom(this.position);
 //	        stick.position.copyFrom(this.position);	
          }
@@ -287,8 +264,22 @@ var Game = {
 
 	onTouchEnd: function (event) {
 		player.body.velocity.x = 0;
-		touchLeft.kill();
-		touchRight.kill();
+		var pastPosition = position;
+		var pos = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
+		if(pastPosition.x-pos.x <= 0) {
+			touchLeft.position.copyFrom(pos);
+			touchLeft.visible=true; 
+            touchLeft.alpha = 1; 
+            game.add.tween(touchLeft).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
+			touchLeft.revive();
+		}else if(pastPosition.x-pos.x > 0){
+		    touchRight.position.copyFrom(pos);
+            touchRight.visible=true; 		
+            touchRight.alpha = 1;
+            game.add.tween(touchRight).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
+		    touchRight.revive();				
+		}
+
 	},	
  
 	render: function() {
