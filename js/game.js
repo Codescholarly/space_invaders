@@ -253,16 +253,17 @@ var Game = {
 	
 	onTouchStart: function (event) {
 		 if (game.input.activePointer.x <= game.world.centerX ){
+			var pastPosition = position;
 			position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
-			if(game.input.activePointer.x-position.x > 0) {
+			if(pastPosition.x-position.x > 0) {
 				touchLeft.position.copyFrom(position);
 				touchLeft.visible=true; 
 	            touchLeft.alpha = 1; 
 	            game.add.tween(touchLeft).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
 				touchLeft.revive();
-			}else if(game.input.activePointer.x-position.x <= 0){
+			}else if(pastPosition.x-position.x <= 0){
 			    touchRight.position.copyFrom(position);
-	            touchLeft.visible=true; 		
+	            touchRight.visible=true; 		
 	            touchRight.alpha = 1;
 	            game.add.tween(touchRight).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
 			    touchRight.revive();				
