@@ -217,9 +217,19 @@ var Game = {
 		}
 		else if(game.input.activePointer.isDown && game.input.activePointer.x <= game.world.centerX ) {
 			if(game.input.activePointer.x-position.x > 0) {
-		  	  player.body.velocity.x = 200;				
+		  	  player.body.velocity.x = 200;  
+				touchLeft.position.copyFrom(position);
+				touchLeft.visible=true; 
+	            touchLeft.alpha = 1; 
+	            game.add.tween(touchLeft).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
+				touchLeft.revive(); 				
 			}else if(game.input.activePointer.x-position.x <= 0){
 			  player.body.velocity.x = -200;				
+			    touchRight.position.copyFrom(position);
+	            touchRight.visible=true; 		
+	            touchRight.alpha = 1;
+	            game.add.tween(touchRight).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
+			    touchRight.revive();
 			}
 	    }
         game.physics.arcade.overlap(lasers, aliens, this.collision, null, this);
@@ -255,6 +265,7 @@ var Game = {
 		 if (game.input.activePointer.x <= game.world.centerX ){
 			var pastPosition = position;
 			position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
+			/*
 			if(pastPosition.x-position.x > 0) {
 				touchLeft.position.copyFrom(position);
 				touchLeft.visible=true; 
@@ -268,6 +279,7 @@ var Game = {
 	            game.add.tween(touchRight).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
 			    touchRight.revive();				
 			}
+			*/
 //	        contour.position.copyFrom(this.position);
 //	        stick.position.copyFrom(this.position);	
          }
