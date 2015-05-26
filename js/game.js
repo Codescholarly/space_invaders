@@ -255,13 +255,9 @@ var Game = {
 //		  {  
 //			this.magnitude = 10;
 //	      }
-	      if(game.input.activePointer.x-this.position.x >= 0 )
-	      {
-		  	 player.body.velocity.x = 200;
-		  }
-          else if(game.input.activePointer.x-this.position.x < 0 ) {
-	         player.body.velocity.x = -200;
-          }	
+	      
+		  	 player.x += game.input.activePointer.x-this.position.x;
+             console.log(player.x);
 
 	    }
     },
