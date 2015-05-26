@@ -175,7 +175,7 @@ var Game = {
 	        {
 	            player.body.velocity.x = 200;
 	        }
-
+/*
            else if (cursors.up.isDown)
 	        {
 	            player.body.velocity.y = -200;
@@ -184,7 +184,7 @@ var Game = {
 	        {
 	            player.body.velocity.y = 200;
 	        }
-	
+*/	
 	        // Dispara si se presiona el mouse
 	        if (fire.isDown)
 			{
@@ -207,7 +207,7 @@ var Game = {
 		}
 		else if(game.input.activePointer.isDown && game.input.activePointer.x <= game.world.centerX ) {
 		  	 player.x += (game.input.activePointer.x-position.x)/20;
-		  	 player.y += (game.input.activePointer.y-position.y)/20;
+//		  	 player.y += (game.input.activePointer.y-position.y)/20;
 	    }
         game.physics.arcade.overlap(lasers, aliens, this.collision, null, this);
         game.physics.arcade.overlap(alienBullets, player, this.alienHitPlayer, null, this);
