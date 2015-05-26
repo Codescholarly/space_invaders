@@ -255,6 +255,8 @@ var Game = {
 		  if(this.magnitude >= 10)
 		  {  
 			this.magnitude = 10;
+			this.position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
+			this.position = Phaser.Point.subtract(this.position, this.direction);
 	      }
 		  player.body.velocity.x = this.direction.multiply(this.magnitude).x;
 	    }
