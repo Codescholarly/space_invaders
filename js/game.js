@@ -255,6 +255,7 @@ var Game = {
 		  if(this.magnitude >= 10)
 		  {  
 			this.magnitude = 10;
+			this.direction = Phaser.Point.normalize(this.direction);
 			this.position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
 			this.position = Phaser.Point.subtract(this.position, this.direction);
 	      }
