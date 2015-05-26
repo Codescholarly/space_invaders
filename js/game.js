@@ -244,6 +244,7 @@ var Game = {
     },
 
 	onTouchMove: function (event) {
+		console.log(event);
 		if(game.input.activePointer.isDown && game.input.activePointer.x <= game.world.centerX ) {
 		  this.stickPosition = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
 		  this.direction = Phaser.Point.subtract(this.stickPosition, this.position);
@@ -332,7 +333,7 @@ var Game = {
 
 	
 	fireAlien: function() {
-
+/*
 		//  Agarramos el primer bullet
 	    alienBullet = alienBullets.getFirstExists(false);
 
@@ -361,7 +362,7 @@ var Game = {
 	        firingTimer = game.time.now + alienFireSpeed;
 
 	    }
-
+*/
 	},
 	
 	restart: function () {
