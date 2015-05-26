@@ -116,8 +116,8 @@ var Game = {
 
 		if (game.device.touch)
 		{
-	       game.input.touch.touchEnterCallback = this.onTouchStart;
-	       game.input.touch.touchMoveCallback = this.onTouchMove;
+	       game.input.touch.touchStartCallback = this.onTouchStart;
+//	       game.input.touch.touchMoveCallback = this.onTouchMove;
 	       game.input.touch.touchEndCallback = this.onTouchLeave;	
 		}
 		else
@@ -202,9 +202,13 @@ var Game = {
 //		if (button.input.pointerDown(game.input.activePointer.id)) {
 //					this.fireLaser();
 //		}
-//	    if (game.input.activePointer.isDown && game.input.activePointer.x > game.world.centerX ){
-//			this.fireLaser();
-//		}
+	    if (game.input.activePointer.isDown && game.input.activePointer.x > game.world.centerX ){
+		   this.fireLaser();
+		}
+		else if(game.input.activePointer.isDown && game.input.activePointer.x <= game.world.centerX ) {
+		  	 player.x += game.input.activePointer.x-position.x;
+
+	    }
         game.physics.arcade.overlap(lasers, aliens, this.collision, null, this);
         game.physics.arcade.overlap(alienBullets, player, this.alienHitPlayer, null, this);
 
@@ -239,21 +243,7 @@ var Game = {
 			position = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
 //	        contour.position.copyFrom(this.position);
 //	        stick.position.copyFrom(this.position);	
-	     }else if(game.input.activePointer.x > game.world.centerX ){
-		    if (game.time.now > laserTime)
-		    {
-		        laser = lasers.getFirstExists(false);
-
-		        if (laser)
-		        {
-		            laser.reset(player.x, player.y + 8);
-		            laser.body.velocity.y = -400;
-		            laserTime = game.time.now + 200;
-		        }
-		    }
-	        laser_sound.play();
-		}		
-        console.log(position);
+         }
     },
 
 	onTouchMove: function (event) {
@@ -268,9 +258,6 @@ var Game = {
 //		  {  
 //			this.magnitude = 10;
 //	      }
-	      
-		  	 player.x += game.input.activePointer.x-position.x;
-             console.log(player.x);
 
 	    }
     },
