@@ -124,7 +124,7 @@ var Game = {
 		{
 		   game.input.mouse.mouseDownCallback = this.onTouchStart;
            game.input.mouse.mouseMoveCallback = this.onTouchMove;
-          game.input.mouse.mouseOutCallback = this.onTouchLeave;
+           game.input.mouse.mouseOutCallback = this.onTouchLeave;
        }
 
 	},
@@ -244,19 +244,25 @@ var Game = {
     },
 
 	onTouchMove: function (event) {
-		console.log(event);
 		if(game.input.activePointer.isDown && game.input.activePointer.x <= game.world.centerX ) {
-		  this.stickPosition = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
-		  this.direction = Phaser.Point.subtract(this.stickPosition, this.position);
-		  this.magnitude = this.direction.getMagnitudeSq();
+//		  this.stickPosition = new Phaser.Point(game.input.activePointer.x, game.input.activePointer.y);
+//		  this.direction = Phaser.Point.subtract(this.stickPosition, this.position);
+//		  this.magnitude = this.direction.getMagnitudeSq();
 //		  this.stickPosition.clampX(this.position.x-20,this.position.x+20);
 //		  this.stickPosition.clampY(this.position.y-20,this.position.y+20);		
- //         stick.position.copyFrom(this.stickPosition);
-		  if(this.magnitude >= 10)
-		  {  
-			this.magnitude = 10;
-	      }
-		  player.body.velocity.x = this.direction.multiply(this.magnitude).x;
+//         stick.position.copyFrom(this.stickPosition);
+//		  if(this.magnitude >= 10)
+//		  {  
+//			this.magnitude = 10;
+//	      }
+	      if(game.input.activePointer.x-this.position.x >= 0 )
+	      {
+		  	 player.body.velocity.x = 200;
+		  }
+          else if(game.input.activePointer.x-this.position.x < 0 ) {
+	         player.body.velocity.x = -200;
+          }	
+
 	    }
     },
 
