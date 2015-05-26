@@ -72,7 +72,7 @@ var Game = {
 
 	    //  Las vidas
 	    lives = 3;
-	    liveString = 'VIDAS: ';
+	    liveString = 'VIDASs: ';
 	    liveText = game.add.text(700, 10, liveString + lives, { font: '18px Arial', fill: '#fff' });
 	
 	    //  Texto
